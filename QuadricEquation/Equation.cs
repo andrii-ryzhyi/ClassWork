@@ -1,20 +1,22 @@
 ﻿namespace QuadraticEquation
 {
     using System;
+
     internal class Equation
     {
-        private double x1, x2;
-        private string message; 
         public double A { get; }
         public double B { get; }
         public double C { get; }
 
+        private double x1, x2;
+        private string message;
         public Equation(double a, double b, double c)
         {
             A = a;
             B = b;
             C = c;
         }
+
         private double CalculateDiscriminant()
         {
             return Math.Pow(B, 2) - 4 * A * C;
@@ -42,6 +44,7 @@
             else
                 message = "Input for quadratic equation is incorrect. Parameter a = 0";
         }
+
         public string GetResult()
         {
             CalculateResult();
