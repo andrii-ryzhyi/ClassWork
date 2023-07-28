@@ -3,54 +3,49 @@
     using System;
     internal class Equation
     {
-        private double a;
-        private double b;
-        private double c;
         private double x1, x2;
-
-        public double A
-        {
-            get { return a; }
-        }
-        public double B
-        {
-            get { return b; }
-        }
-        public double C
-        {
-            get { return c; }
-        }
+        private string message; 
+        public double A { get; }
+        public double B { get; }
+        public double C { get; }
 
         public Equation(double a, double b, double c)
         {
-            this.a = a;
-            this.b = b;
-            this.c = c;
+            A = a;
+            B = b;
+            C = c;
+        }
+        private double CalculateDiscriminant()
+        {
+            return Math.Pow(B, 2) - 4 * A * C;
         }
 
-        private void InitEquation()
+        private void CalculateResult()
         {
-            if (a != 0.0D)
+            if (A != 0.0D)
             {
-                double discriminant = Math.Pow(b, 2) - 4 * a * c;
-                if (discriminant >= 0)
+                double discriminant = CalculateDiscriminant();
+                if (discriminant > 0)
                 {
-                    x1 = (-b + Math.Sqrt(discriminant)) / (2 * a);
-                    x2 = (-b - Math.Sqrt(discriminant)) / (2 * a);
+                    x1 = (-B + Math.Sqrt(discriminant)) / (2 * A);
+                    x2 = (-B - Math.Sqrt(discriminant)) / (2 * A);
+                    message = $"x1 = {x1.ToString()}; x2 = {x2.ToString()}";
+                }
+                else if (discriminant == 0)
+                {
+                    x1 = x2 = -B / (2 * A);
+                    message = $"Discriminant = 0\n x1 = x2 = {x1.ToString()}";
                 }
                 else
-                    Console.WriteLine("Discriminant < 0 which leads to complex solution");
+                    message = "Discriminant < 0 which leads to complex solution";
             }
             else
-            {
-                Console.WriteLine("Input for quadratic equation is incorrect. Parameter a=0\n");
-            }
+                message = "Input for quadratic equation is incorrect. Parameter a = 0";
         }
         public string GetResult()
         {
-            InitEquation();
-            string result = $"x1 = {x1.ToString()}; x2 = {x2.ToString()}";
-            return result;
+            CalculateResult();
+            return message;
         }
     }
 }
